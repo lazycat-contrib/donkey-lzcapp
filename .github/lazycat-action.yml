@@ -47,11 +47,15 @@ stores:
       source: https://github.com/ca-x/donkey
       source_author: ca-x
       support_pc: true
-      support_mobile: false
+      support_mobile: true
       screenshot_pc_files:
         - .github/screenshots/pc-dashboard-dark.png
         - .github/screenshots/pc-image-tools-dark-zh.png
         - .github/screenshots/pc-nodes-light-zh.png
+      screenshot_mobile_files:
+        - .github/screenshots/mobile-dashboard-dark-zh.png
+        - .github/screenshots/mobile-image-tools-dark-zh.png
+        - .github/screenshots/mobile-nodes-dark-zh.png
   private:
     enabled: true
     skip_if_version_exists: true

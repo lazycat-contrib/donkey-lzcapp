@@ -47,6 +47,7 @@ services:
       - TZ={{ .U.timezone }}
     binds:
       - /lzcapp/var/data:/data
+    user: "root"
     mem_limit: 1024M
     healthcheck:
       test:

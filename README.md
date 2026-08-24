@@ -1,6 +1,6 @@
 # Donkey for LazyCat
 
-Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.0`，包名为 `community.lazycat.app.donkey`。
+Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.0`，包名为 `community.lazycat.app.donkey`。LPK `0.2.0` 通过以 root 用户运行容器，确保能够写入 LazyCat 持久目录。
 
 ## 入口
 
@@ -32,7 +32,11 @@ docker pull <registry-domain>/library/nginx:latest
 
 ![Registry nodes](.github/screenshots/pc-nodes-light-zh.png)
 
-<img src=".github/screenshots/mobile-dashboard-dark-zh.png" alt="Mobile dashboard" width="375">
+<p>
+  <img src=".github/screenshots/mobile-dashboard-dark-zh.png" alt="Mobile dashboard" width="30%">
+  <img src=".github/screenshots/mobile-image-tools-dark-zh.png" alt="Mobile image tools" width="30%">
+  <img src=".github/screenshots/mobile-nodes-dark-zh.png" alt="Mobile registry nodes" width="30%">
+</p>
 
 ## 本地构建
 
