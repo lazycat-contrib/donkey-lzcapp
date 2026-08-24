@@ -1,0 +1,66 @@
+application:
+  subdomain: donkey
+  background_task: true
+  multi_instance: false
+  oidc_redirect_path: /api/auth/oidc/callback
+  public_path:
+    - /
+  entries:
+    - id: registry
+      title: Registry
+      path: /
+    - id: admin
+      title: Admin console
+      path: /
+      prefix_domain: admin
+  upstreams:
+    - location: /
+      domain_prefix: admin
+      backend: http://donkey:5003/
+    - location: /
+      backend: http://donkey:5443/
+  injects:
+    - id: open-save-chooser
+      on: browser
+      prefix_domain: admin
+      auth_required: false
+      when:
+        - /*
+      do:
+        - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
+
+services:
+  donkey:
+    # upstream: ghcr.io/ca-x/donkey:0.2.0
+    image: ghcr.io/ca-x/donkey:0.2.0
+    environment:
+      - DONKEY_DATA_DIR=/data
+      - DONKEY_ADMIN_ADDR=0.0.0.0:5003
+      - DONKEY_ADMIN_EXTERNAL_TLS=true
+      - DONKEY_REGISTRY_ADDR=0.0.0.0:5443
+      - DONKEY_REGISTRY_EXTERNAL_TLS=true
+      - DONKEY_OIDC_ISSUER=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
+      - DONKEY_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - DONKEY_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - DONKEY_OIDC_REDIRECT_URL=https://admin-${LAZYCAT_APP_DOMAIN}/api/auth/oidc/callback
+      - DONKEY_OIDC_DISPLAY_NAME=LazyCat
+      - DONKEY_CREDENTIAL_KEY={{ stable_secret "donkey_credential_key_v1" | sha256sum }}
+      - TZ={{ .U.timezone }}
+    binds:
+      - /lzcapp/var/data:/data
+    mem_limit: 1024M
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - --silent
+        - --show-error
+        - http://127.0.0.1:5003/api/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+ext_config:
+  default_prefix_domain: admin

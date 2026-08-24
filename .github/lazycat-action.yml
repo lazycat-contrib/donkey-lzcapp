@@ -1,0 +1,59 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/community.lazycat.app.donkey.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: donkey
+
+build:
+  toolchains: []
+  run_buildscript: false
+
+images:
+  - id: donkey
+    target: service
+    service: donkey
+    source: ghcr.io/ca-x/donkey
+    channel: stable
+    sort: semver
+    tag_regex: '^v?\d+\.\d+\.\d+$'
+    delivery:
+      mode: lazycat
+
+stores:
+  official:
+    enabled: true
+    continue_if_newer_version: true
+    skip_if_version_exists: true
+    create_if_missing: true
+    changelog_locales: [zh, en]
+    retry:
+      enabled: false
+    application:
+      language: zh
+      name: Donkey
+      brief: 管理 Docker Registry 加速、缓存、镜像提取与跨仓库复制
+      description: Donkey 提供 Docker Registry v2 代理与缓存，并包含镜像内容浏览、文件提取、离线导出以及支持认证和定时任务的跨仓库复制功能。
+      keywords: Docker, Registry, 镜像加速, 镜像复制, 离线镜像
+      source: https://github.com/ca-x/donkey
+      source_author: ca-x
+      support_pc: true
+      support_mobile: false
+      screenshot_pc_files:
+        - .github/screenshots/pc-dashboard-dark.png
+        - .github/screenshots/pc-image-tools-dark-zh.png
+        - .github/screenshots/pc-nodes-light-zh.png
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Donkey
+    summary: Docker Registry acceleration and image operations

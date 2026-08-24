@@ -1,0 +1,22 @@
+package: community.lazycat.app.donkey
+version: 0.2.0
+name: Donkey
+description: Docker Registry accelerator, cache, image browser, offline exporter, and registry copy scheduler
+author: ca-x
+license: MIT
+homepage: https://github.com/ca-x/donkey
+min_os_version: 1.5.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Donkey
+    description: Docker Registry 加速、缓存、镜像浏览与文件提取、离线导出和定时跨仓库复制工具
+    entries.registry.title: 镜像仓库
+    entries.admin.title: 管理控制台
+  en:
+    name: Donkey
+    description: Docker Registry acceleration, caching, image browsing and extraction, offline export, and scheduled registry copies
+    entries.registry.title: Registry
+    entries.admin.title: Admin console
