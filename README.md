@@ -4,10 +4,11 @@ Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.0
 
 ## 入口
 
-- `https://${LAZYCAT_APP_DOMAIN}/`：Docker Registry v2 入口
-- `https://admin-${LAZYCAT_APP_DOMAIN}/`：管理控制台
+- `https://${LAZYCAT_APP_DOMAIN}/`：Docker Registry 与 DomainFold 入口
+- `https://${LAZYCAT_APP_DOMAIN}/console/`：管理控制台
+- `https://${LAZYCAT_APP_DOMAIN}/console/api/auth/oidc/callback`：OIDC 回调
 
-LazyCat 启动器默认打开管理控制台。管理端使用 LazyCat OIDC，空用户库中第一个成功登录的用户会成为管理员，不提供额外的初始化向导。
+管理端使用 LazyCat OIDC，空用户库中第一个成功登录的用户会成为管理员，不提供额外的初始化向导。管理界面与 API 都位于 `/console` 子路径，根路径完整保留给 Registry。
 
 Docker 客户端可按常规 Registry 方式使用：
 

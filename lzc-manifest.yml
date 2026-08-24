@@ -2,7 +2,7 @@ application:
   subdomain: donkey
   background_task: true
   multi_instance: false
-  oidc_redirect_path: /api/auth/oidc/callback
+  oidc_redirect_path: /console/api/auth/oidc/callback
   public_path:
     - /
   entries:
@@ -11,21 +11,25 @@ application:
       path: /
     - id: admin
       title: Admin console
-      path: /
-      prefix_domain: admin
+      path: /console/
   upstreams:
-    - location: /
-      domain_prefix: admin
+    - location: /console
       backend: http://donkey:5003/
     - location: /
       backend: http://donkey:5443/
   injects:
-    - id: open-save-chooser
-      on: browser
-      prefix_domain: admin
+    - id: console-trailing-slash
+      on: request
       auth_required: false
       when:
-        - /*
+        - /console
+      do: |
+        ctx.response.send(302, "", { location: "/console/" });
+    - id: open-save-chooser
+      on: browser
+      auth_required: false
+      when:
+        - /console/*
       do:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
 services:
@@ -41,7 +45,7 @@ services:
       - DONKEY_OIDC_ISSUER=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
       - DONKEY_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
       - DONKEY_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
-      - DONKEY_OIDC_REDIRECT_URL=https://admin-${LAZYCAT_APP_DOMAIN}/api/auth/oidc/callback
+      - DONKEY_OIDC_REDIRECT_URL=https://${LAZYCAT_APP_DOMAIN}/console/api/auth/oidc/callback
       - DONKEY_OIDC_DISPLAY_NAME=LazyCat
       - DONKEY_CREDENTIAL_KEY={{ stable_secret "donkey_credential_key_v1" | sha256sum }}
       - TZ={{ .U.timezone }}
@@ -61,5 +65,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-ext_config:
-  default_prefix_domain: admin
