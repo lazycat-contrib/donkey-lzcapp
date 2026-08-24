@@ -28,11 +28,10 @@ application:
         - /*
       do:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
-
 services:
   donkey:
-    # upstream: ghcr.io/ca-x/donkey:0.2.0
-    image: ghcr.io/ca-x/donkey:0.2.0
+    # upstream: ghcr.io/ca-x/donkey:v0.2.0
+    image: registry.lazycat.cloud/czyt/ca-x/donkey:1a3e177157bde5a2
     environment:
       - DONKEY_DATA_DIR=/data
       - DONKEY_ADMIN_ADDR=0.0.0.0:5003
@@ -61,6 +60,5 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-
 ext_config:
   default_prefix_domain: admin
