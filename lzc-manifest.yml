@@ -6,18 +6,25 @@ application:
   public_path:
     - /
   entries:
-    - id: registry
-      title: Registry
-      path: /
     - id: admin
       title: Admin console
       path: /console/
+    - id: registry
+      title: Registry
+      path: /v2/
   upstreams:
-    - location: /console
+    - location: /console/
       backend: http://donkey:5003/
     - location: /
       backend: http://donkey:5443/
   injects:
+    - id: root-to-console
+      on: request
+      auth_required: false
+      when:
+        - /
+      do: |
+        ctx.response.send(302, "", { location: "/console/" });
     - id: console-trailing-slash
       on: request
       auth_required: false

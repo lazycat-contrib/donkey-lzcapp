@@ -1,14 +1,15 @@
 # Donkey for LazyCat
 
-Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.0`，包名为 `community.lazycat.app.donkey`。LPK `0.2.0` 通过以 root 用户运行容器，确保能够写入 LazyCat 持久目录。
+Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.2`，包名为 `community.lazycat.app.donkey`。容器以 root 用户运行，确保能够写入 LazyCat 持久目录。
 
 ## 入口
 
-- `https://${LAZYCAT_APP_DOMAIN}/`：Docker Registry 与 DomainFold 入口
+- `https://${LAZYCAT_APP_DOMAIN}/`：跳转到管理控制台
+- `https://${LAZYCAT_APP_DOMAIN}/v2/`：Docker Registry v2 API
 - `https://${LAZYCAT_APP_DOMAIN}/console/`：管理控制台
 - `https://${LAZYCAT_APP_DOMAIN}/console/api/auth/oidc/callback`：OIDC 回调
 
-管理端使用 LazyCat OIDC，空用户库中第一个成功登录的用户会成为管理员，不提供额外的初始化向导。管理界面与 API 都位于 `/console` 子路径，根路径完整保留给 Registry。
+管理端使用 LazyCat OIDC，空用户库中第一个成功登录的用户会成为管理员，不提供额外的初始化向导。管理界面与 API 都位于 `/console` 子路径；裸 `/` 只负责跳转，Docker 的 `/v2/*` 和 DomainFold 等其他 Registry 路径仍由 Registry 服务处理。
 
 Docker 客户端可按常规 Registry 方式使用：
 
