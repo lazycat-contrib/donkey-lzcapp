@@ -1,6 +1,6 @@
 # Donkey for LazyCat
 
-Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.4`，包名为 `community.lazycat.app.donkey`。容器以 root 用户运行，确保能够写入 LazyCat 持久目录。
+Donkey 的 LazyCat LPK v2 打包仓库。应用使用 `ghcr.io/ca-x/donkey:0.2.6`，包名为 `community.lazycat.app.donkey`。容器以 root 用户运行，确保能够写入 LazyCat 持久目录。
 
 ## 入口
 
