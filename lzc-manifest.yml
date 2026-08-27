@@ -41,8 +41,8 @@ application:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
 services:
   donkey:
-    # upstream: ghcr.io/ca-x/donkey:v0.3.4
-    image: registry.lazycat.cloud/czyt/ca-x/donkey:eb1fade5918bb8e7
+    # upstream: ghcr.io/ca-x/donkey:v0.3.5
+    image: registry.lazycat.cloud/czyt/ca-x/donkey:2b2d53f2f79c4515
     environment:
       - DONKEY_DATA_DIR=/data
       - DONKEY_ADMIN_ADDR=0.0.0.0:5003
