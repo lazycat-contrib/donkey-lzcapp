@@ -1,5 +1,5 @@
 package: community.lazycat.app.donkey
-version: 0.3.0
+version: 0.3.1
 name: Donkey
 description: Docker Registry accelerator, cache, image browser, offline exporter, and registry copy scheduler
 author: ca-x
